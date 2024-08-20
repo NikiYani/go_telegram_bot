@@ -2,21 +2,32 @@ package main
 
 import (
 	"flag"
+	event_consumer "github.com/go_telegram_bot/consumer/event-consumer"
 	"log"
+
+	tgClient "github.com/RSheremeta/read-adviser-bot/clients/telegram"
+	"github.com/RSheremeta/read-adviser-bot/consumer/event-consumer"
+	"github.com/RSheremeta/read-adviser-bot/events/telegram"
 )
 
 const (
 	tgBotHost = "api.telegram.org"
+	batchSize = 100
 )
 
 func main() {
-	// tgClient := telegram.New(tgBotHost, mustToken())
+	eventsProcessor := telegram.New(
+		tgClient.New(tgBotHost, mustToken()),
+		s,
+	)
 
-	// fetcher = fetcher.New()
+	log.Print("service started")
 
-	// proccessor = proccessor.New()
+	consumer := event_consumer.New(eventsProcessor, eventsProcessor, batchSize)
 
-	// condumer.Start(fetcher, proccessor)
+	if err := consumer.Start(); err != nil {
+		log.Fatal("service is stopped", err)
+	}
 
 }
 
