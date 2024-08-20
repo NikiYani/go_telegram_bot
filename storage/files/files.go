@@ -4,6 +4,8 @@ import (
 	"encoding/gob"
 	"errors"
 	"fmt"
+	"github.com/go_telegram_bot/lib/e"
+	"github.com/go_telegram_bot/storage"
 	"math/rand"
 	"os"
 	"path/filepath"
@@ -15,8 +17,6 @@ type Storage struct {
 }
 
 const defaultPerm = 0774
-
-var ErrNoSavedPages = errors.New("no saved pages found")
 
 func New(basePath string) Storage {
 	return Storage{basePath: basePath}

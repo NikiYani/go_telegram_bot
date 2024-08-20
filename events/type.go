@@ -4,7 +4,7 @@ type Fetcher interface {
 	Fecth(limit int) ([]Event, error)
 }
 
-type Proccessor interface {
+type Processor interface {
 	Process(e Event) error
 }
 
@@ -18,4 +18,5 @@ const (
 type Event struct {
 	Type Type
 	Text string
+	Meta interface{}
 }
